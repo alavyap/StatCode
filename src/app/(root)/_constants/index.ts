@@ -335,7 +335,7 @@ print("Even numbers: \\(evenNumbers)")
 let sum = numbers.reduce(0, +)
 print("Sum of numbers: \\(sum)")`,
   },
-};
+  };
 
 
 // Themes of Our Editor

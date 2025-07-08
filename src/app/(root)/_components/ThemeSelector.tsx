@@ -13,6 +13,7 @@ import {
   Palette,
   Sun,
 } from "lucide-react";
+import useMounted from "@/hooks/useMounted";
 
 const THEME_ICONS: Record<string, React.ReactNode> = {
   "vs-dark": <Moon className="size-4" />,
@@ -24,7 +25,7 @@ const THEME_ICONS: Record<string, React.ReactNode> = {
 
 const ThemeSelector = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [mounted, setMounted] = useState(false);
+  const mounted = useMounted();
   const { theme, setTheme } = useCodeEditorStore();
   const dropdownRef = useRef<HTMLDivElement>(null);
   const currentTheme = THEMES.find((t) => t.id === theme);
@@ -44,17 +45,13 @@ const ThemeSelector = () => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  // This effect ensures the component is mounted before rendering
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
+  
   if (!mounted) {
     return null; // Prevents hydration mismatch
   }
 
   return (
-    <div className="relative inline-block text-left" ref={dropdownRef}>
+    <div className="relative" ref={dropdownRef}>
       <motion.button
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
