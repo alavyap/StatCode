@@ -4,15 +4,15 @@ import { useEffect, useRef, useState } from "react";
 import { LANGUAGE_CONFIG } from "../_constants";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
-import { ChevronDownIcon, Sparkles, Lock } from "lucide-react";
+import { ChevronDownIcon, Lock, Sparkles } from "lucide-react";
 import useMounted from "@/hooks/useMounted";
 
 function LanguageSelector({ hasAccess }: { hasAccess: boolean }) {
   const [isOpen, setIsOpen] = useState(false);
   const mounted = useMounted();
+
   const { language, setLanguage } = useCodeEditorStore();
   const dropdownRef = useRef<HTMLDivElement>(null);
-
   const currentLanguageObj = LANGUAGE_CONFIG[language];
 
   useEffect(() => {
@@ -30,24 +30,24 @@ function LanguageSelector({ hasAccess }: { hasAccess: boolean }) {
   }, []);
 
   const handleLanguageSelect = (langId: string) => {
-    if (!hasAccess && langId !== "python") return;
+    if (!hasAccess && langId !== "javascript") return;
 
     setLanguage(langId);
     setIsOpen(false);
   };
 
-  if (!mounted) return null; // Prevents hydration mismatch
+  if (!mounted) return null;
 
   return (
-    <div className="relative inline-block text-left" ref={dropdownRef}>
+    <div className="relative" ref={dropdownRef}>
       <motion.button
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.99 }}
+        whileHover={{ scale: 1.02 }}
+        whileTap={{ scale: 0.98 }}
         onClick={() => setIsOpen(!isOpen)}
         className={`group relative flex items-center gap-3 px-4 py-2.5 bg-[#1e1e2e]/80 
       rounded-lg transition-all 
        duration-200 border border-gray-800/50 hover:border-gray-700
-       ${!hasAccess && language !== "python" ? "opacity-50 cursor-not-allowed" : ""}`}
+       ${!hasAccess && language !== "javascript" ? "opacity-50 cursor-not-allowed" : ""}`}
       >
         {/* Decoration */}
         <div
@@ -59,7 +59,7 @@ function LanguageSelector({ hasAccess }: { hasAccess: boolean }) {
         <div className="size-6 rounded-md bg-gray-800/50 p-0.5 group-hover:scale-110 transition-transform">
           <Image
             src={currentLanguageObj.logoPath}
-            alt="Programming language logo"
+            alt="programming language logo"
             width={24}
             height={24}
             className="w-full h-full object-contain relative z-10"
@@ -94,7 +94,7 @@ function LanguageSelector({ hasAccess }: { hasAccess: boolean }) {
 
             <div className="max-h-[280px] overflow-y-auto overflow-x-hidden">
               {Object.values(LANGUAGE_CONFIG).map((lang, index) => {
-                const isLocked = !hasAccess && lang.id !== "python";
+                const isLocked = !hasAccess && lang.id !== "javascript";
 
                 return (
                   <motion.div
@@ -172,5 +172,4 @@ function LanguageSelector({ hasAccess }: { hasAccess: boolean }) {
     </div>
   );
 }
-
 export default LanguageSelector;
