@@ -145,10 +145,7 @@ export const useCodeEditorStore = create<CodeEditorState>((set, get) => {
                         output: output.trim(),
                         error: null
                     }
-                })
-
-
-              
+                })              
             } catch (error) {
                 console.log("Error running code",error)
                 set({error:"Error running code",executionResult:{code,output: "",error: "Error running code"}})
