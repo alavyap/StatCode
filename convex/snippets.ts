@@ -37,6 +37,82 @@ export const createSnippet = mutation({
 });
 
 
+// Delete Snippet
+export const deleteSnippet = mutation({
+    args: {
+        snippetId: v.id("snippets"),
+    },
+    handler: async(ctx,args)=> {
+        const identity = await ctx.auth.getUserIdentity();
+        if(!identity) throw new Error("Not Authenticated");
+
+
+        const snippet = await ctx.db.get(args.snippetId);
+        if (!snippet) throw new Error ("Snippet not found");
+
+        if (snippet.userId !== identity.subject){
+            throw new Error ("Not Authorized to delete this snippet");
+        }
+
+        // Deleting linked Comments
+        const comments = await ctx.db
+        .query("snippetComments")
+        .withIndex("by_snippet_id")
+        .filter((q) => q.eq(q.field("snippetId"), args.snippetId))
+        .collect();
+        
+        for (const comment of comments){ 
+        await ctx.db.delete(comment._id);
+      }
+
+    //   Deleting linked stars
+
+    const stars = await ctx.db
+      .query("stars")
+      .withIndex("by_snippet_id")
+      .filter((q) => q.eq(q.field("snippetId"), args.snippetId))
+      .collect();
+
+    for (const star of stars) {
+      await ctx.db.delete(star._id);
+    }
+
+    await ctx.db.delete(args.snippetId);
+
+    }
+});
+
+
+// Star a Snippet
+export const starSnippet = mutation ({
+
+    args: {
+        snippetId: v.id("snippets"),
+    },
+    handler: async (ctx,args) => {
+        const identity = await ctx.auth.getUserIdentity();
+        if (!identity) throw new Error("Not Authenticated");
+
+        const existing = await ctx.db
+        .query("stars")
+        .withIndex("by_user_id_and_snippet_id")
+        .filter(
+            (q) =>
+            q.eq(q.field("userId"), identity.subject) && q.eq(q.field("snippetId"), args.snippetId)
+        )
+        .first();
+
+        if(existing) {
+            await ctx.db.delete(existing._id)
+        } else{
+            await ctx.db.insert("stars",{
+                userId: identity.subject,
+                snippetId: args.snippetId
+            })
+        }
+    }
+})
+
 
 export const getSnippets =  query({ 
     handler: async (ctx) => {

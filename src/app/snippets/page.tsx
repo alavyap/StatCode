@@ -6,8 +6,9 @@ import { useState } from "react";
 import SnippetsPageSkeleton from "./_components/SnippetsPageSkeleton";
 import NavigationHeader from "@/components/NavigationHeader";
 
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { BookOpen, Grid, Layers, Search, Tag, X } from "lucide-react";
+import SnippetCard from "./_components/SnippetCard";
 
 function SnippetsPage() {
   const snippets = useQuery(api.snippets.getSnippets);
@@ -24,6 +25,21 @@ function SnippetsPage() {
       </div>
     );
   }
+
+  const language = [...new Set(snippets.map((s) => s.language))];
+  const popularLanguages = language.slice(0, 5);
+
+  const filteredSnippets = snippets.filter((snippet) => {
+    const matchesSearch =
+      snippet.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      snippet.language.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      snippet.userName.toLowerCase().includes(searchQuery.toLowerCase());
+
+    const matchesLanguage =
+      !selectedLanguage || snippet.language === selectedLanguage;
+
+    return matchesSearch && matchesLanguage;
+  });
 
   return (
     <div className="min-h-screen bg-[#0a0a0f]">
@@ -150,6 +166,21 @@ function SnippetsPage() {
               </div>
             </div>
           </div>
+          {/* Snippet Grid */}
+          <motion.div
+            className={`grid gap-6 ${
+              view === "grid"
+                ? "grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
+                : "grid-cols-1 max-w-3xl mx-auto"
+            }`}
+            layout
+          >
+            <AnimatePresence mode="popLayout">
+              {filteredSnippets.map((snippet) => (
+                <SnippetCard key={snippet._id} snippet={snippet} />
+              ))}
+            </AnimatePresence>
+          </motion.div>
         </div>
       </div>
     </div>
