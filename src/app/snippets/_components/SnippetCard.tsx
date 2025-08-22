@@ -7,15 +7,28 @@ import { api } from "../../../../convex/_generated/api";
 import { useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { Clock, StarIcon, Trash2, User } from "lucide-react";
+import { Clock, Trash2, User } from "lucide-react";
 import Image from "next/image";
+import toast from "react-hot-toast";
+import StarButton from "@/components/StarButton";
 
 export default function SnippetCard({ snippet }: { snippet: Snippet }) {
   const { user } = useUser();
   const deleteSnippet = useMutation(api.snippets.deleteSnippet);
   const [isDeleting, setIsDeleting] = useState(false);
 
-  const handleDelete = async () => {};
+  const handleDelete = async () => {
+    setIsDeleting(true);
+
+    try {
+      await deleteSnippet({ snippetId: snippet._id });
+    } catch (error) {
+      console.log("Error deleting snippet:", error);
+      toast.error("Error deleting snippet");
+    } finally {
+      setIsDeleting(false);
+    }
+  };
 
   return (
     <motion.div
@@ -67,8 +80,7 @@ export default function SnippetCard({ snippet }: { snippet: Snippet }) {
                 className="absolute top-5 right-5 z-10 flex gap-4 items-center"
                 onClick={(e) => e.preventDefault()}
               >
-                {/* <StarButton snippetId={snippet._id} /> */}
-                <StarIcon />
+                <StarButton snippetId={snippet._id} />
 
                 {user?.id === snippet.userId && (
                   <div className="z-10" onClick={(e) => e.preventDefault()}>
