@@ -114,6 +114,34 @@ export const starSnippet = mutation ({
 })
 
 
+//  Get a Snippet by Id
+export const getSnippetById = query({
+  args: { snippetId: v.id("snippets") },
+  handler: async (ctx, args) => {
+    const snippet = await ctx.db.get(args.snippetId);
+    if (!snippet) throw new Error("Snippet not found");
+
+    return snippet;
+  },
+});
+
+ 
+// Get Comment of Snippet
+export const getComments = query({
+  args: { snippetId: v.id("snippets") },
+  handler: async (ctx, args) => {
+    const comments = await ctx.db
+      .query("snippetComments")
+      .withIndex("by_snippet_id")
+      .filter((q) => q.eq(q.field("snippetId"), args.snippetId))
+      .order("desc")
+      .collect();
+
+    return comments;
+  },
+});
+
+
 export const getSnippets =  query({ 
     handler: async (ctx) => {
         const snippets = await ctx.db.query("snippets").order("desc").collect();
