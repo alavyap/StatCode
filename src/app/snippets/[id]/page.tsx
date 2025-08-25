@@ -18,6 +18,10 @@ function SnippetDetailPage() {
     snippetId: snippetId as Id<"snippets">,
   });
 
+  const comments = useQuery(api.snippets.getComments, {
+    snippetId: snippetId as Id<"snippets">,
+  });
+
   if (snippet === undefined) return <SnippetLoadingSkeleton />;
 
   return (
@@ -53,7 +57,7 @@ function SnippetDetailPage() {
                     </div>
                     <div className="flex items-center gap-2 text-[#8b8b8d]">
                       <MessageSquare className="w-4 h-4" />
-                      {/* <span>{comments?.length} comments</span> */}
+                      <span>{comments?.length} comments</span>
                     </div>
                   </div>
                 </div>
@@ -92,6 +96,7 @@ function SnippetDetailPage() {
               }}
             />
           </div>
+          <Comments snippetId={snippetId as Id<"snippets">} />
         </div>
       </main>
     </div>
