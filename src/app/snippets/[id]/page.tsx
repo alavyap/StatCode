@@ -11,6 +11,7 @@ import { Clock, Code, MessageSquare, User } from "lucide-react";
 import { Editor } from "@monaco-editor/react";
 import { LANGUAGE_CONFIG, defineMonacoThemes } from "@/app/(root)/_constants";
 import CopyButton from "./_components/CopyButton";
+import Comments from "./_components/Comments";
 
 function SnippetDetailPage() {
   const snippetId = useParams().id;
