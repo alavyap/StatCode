@@ -49,9 +49,7 @@ function Comment({
             </button>
           )}
         </div>
-
         {/* <CommentContent content={comment.content} /> */}
-        
       </div>
     </div>
   );
