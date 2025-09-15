@@ -1,5 +1,6 @@
 import { Trash2Icon, UserIcon } from "lucide-react";
 import { Id } from "../../../../../convex/_generated/dataModel";
+import CommentContent from "./CommentContent";
 interface CommentProps {
   comment: {
     _id: Id<"snippetComments">;
@@ -49,7 +50,7 @@ function Comment({
             </button>
           )}
         </div>
-        {/* <CommentContent content={comment.content} /> */}
+        <CommentContent content={comment.content} />
       </div>
     </div>
   );
