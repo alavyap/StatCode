@@ -12,6 +12,7 @@ import SnippetCard from "./_components/SnippetCard";
 
 function SnippetsPage() {
   const snippets = useQuery(api.snippets.getSnippets);
+  
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedLanguage, setSelectedLanguage] = useState<string | null>(null);
   const [view, setView] = useState<"grid" | "list">("grid");
