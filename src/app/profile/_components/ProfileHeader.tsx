@@ -1,6 +1,10 @@
-import React from "react";
+interface ProfileHeaderProps {
+  userStats: any;
+  userData: any;
+  user: any;
+}
 
-function ProfileHeader() {
+function ProfileHeader({ userStats, userData, user }: ProfileHeaderProps) {
   return <div>ProfileHeader</div>;
 }
 
