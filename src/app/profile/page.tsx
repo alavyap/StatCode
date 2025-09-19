@@ -83,7 +83,7 @@ function ProfilePage() {
           <ProfileHeader
             userStats={userStats}
             userData={userData}
-            user={user}
+            user={user!}
           />
         )}
 
