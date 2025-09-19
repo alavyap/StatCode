@@ -140,7 +140,7 @@ function ProfilePage() {
               transition={{ duration: 0.2 }}
               className="p-6"
             >
-              {/* ACTIVE TAB IS EXECUTIONS */}
+              {/* ACTIVE TAB IS EXECUTION */}
               {activeTab === "executions" && (
                 <div className="space-y-6">
                   {executions?.map((execution) => (

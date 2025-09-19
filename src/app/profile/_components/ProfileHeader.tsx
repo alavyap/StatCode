@@ -5,7 +5,7 @@ interface ProfileHeaderProps {
 }
 
 function ProfileHeader({ userStats, userData, user }: ProfileHeaderProps) {
-  return <div>ProfileHeader</div>;
+  return <div>Profile Header goes here</div>;
 }
 
 export default ProfileHeader;
