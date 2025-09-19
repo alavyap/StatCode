@@ -18,7 +18,7 @@ import {
   Loader2,
   Star,
 } from "lucide-react";
-import CodeBlock from "../snippets/[id]/_components/CodeBlock";
+import CodeBlock from "./_components/CodeBlock";
 import Image from "next/image";
 import StarButton from "@/components/StarButton";
 import Link from "next/link";
