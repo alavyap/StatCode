@@ -2,8 +2,7 @@ import { Zap } from "lucide-react";
 import Link from "next/link";
 
 export default function UpgradeButton() {
-  const CHEKOUT_URL =
-    "https://ytprogrammingstore.lemonsqueezy.com/buy/d459dddb-a233-4060-9e72-90a1a7740552";
+  const CHEKOUT_URL = process.env.NEXT_PUBLIC_LEMON_SQUEEZY_URL || "#";
 
   return (
     <Link
