@@ -45,6 +45,7 @@ async function PricingPage() {
               of tools
             </p>
           </div>
+          
 
           {/* Enterprise Features */}
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-24">
@@ -69,6 +70,7 @@ async function PricingPage() {
               </div>
             ))}
           </div>
+
 
           {/* Pricing Cart */}
           <div className="relative max-w-4xl mx-auto">
@@ -137,6 +139,8 @@ async function PricingPage() {
               </div>
             </div>
           </div>
+
+
         </div>
       </main>
     </div>
