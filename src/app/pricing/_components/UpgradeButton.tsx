@@ -1,4 +1,4 @@
-import { Zap } from "lucide-react";
+import {  Zap } from "lucide-react";
 import Link from "next/link";
 
 export default function UpgradeButton() {
@@ -12,7 +12,7 @@ export default function UpgradeButton() {
         hover:from-blue-600 hover:to-blue-700 transition-all"
     >
       <Zap className="w-5 h-5" />
-      Upgrade to Pro
+      Unlock Pro
     </Link>
   );
 }
