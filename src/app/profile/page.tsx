@@ -78,8 +78,6 @@ function ProfilePage() {
       <NavigationHeader />
 
       <div className="max-w-7xl mx-auto px-4 py-12">
-
-        
         {/* Profile Header */}
         {userStats && userData && (
           <ProfileHeader
@@ -218,7 +216,7 @@ function ProfilePage() {
                     <div className="text-center py-12">
                       <Loader2 className="w-12 h-12 text-gray-600 mx-auto mb-4 animate-spin" />
                       <h3 className="text-lg font-medium text-gray-400 mb-2">
-                        Searching code executions...
+                        Looking for code executions...
                       </h3>
                     </div>
                   ) : (
