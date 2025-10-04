@@ -18,7 +18,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Stat Code",
-  description: "The only online coding editor you need",
+  description: "Best online coding editor without AI!",
 };
 
 export default function RootLayout({
