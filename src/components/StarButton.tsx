@@ -27,6 +27,7 @@ function StarButton({ snippetId }: { snippetId: Id<"snippets"> }) {
     }`}
       onClick={handleStar}
     >
+      {/* Star Icon */}
       <Star
         className={`w-4 h-4 ${isStarred ? "fill-yellow-500" : "fill-none group-hover:fill-gray-400"}`}
       />
